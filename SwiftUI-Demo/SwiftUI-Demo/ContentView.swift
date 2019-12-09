@@ -13,12 +13,13 @@ let baseGradient = LinearGradient(gradient: Gradient(colors: [Color(red: 0.1, gr
 struct ContentView: View {
     var body: some View {
         ZStack {
-            Color(red: 0.4, green: 0.9, blue: 0.8).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            LinearGradient(gradient: Gradient(colors: [Color(red: 0.5, green: 0.9, blue: 0.8), .white]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
+            
             VStack(alignment: .center) {
                 Text("SwiftUI Demo")
                     .font(.largeTitle)
                     .fontWeight(.semibold)
-                    .foregroundColor(Color(hue: 0.601, saturation: 0.908, brightness: 0.823))
+                    .foregroundColor(Color(red: 0.2, green: 0.4, blue: 0.6))
                     .padding(.top, 70)
                 Spacer()
                 RoundedRectangle(cornerRadius: 76)
@@ -36,7 +37,7 @@ struct ContentView: View {
                     .padding(.top, 50)
                 RoundedButton(text: "Login")
                     .padding(.horizontal, 20)
-                    .padding(.top, 10)
+                    .padding(.top, 20)
             }.padding(.bottom, 200)
         }
     }
@@ -51,13 +52,22 @@ struct ContentView_Previews: PreviewProvider {
 struct RoundedButton: View {
     let text: String
     var body: some View {
-        RoundedRectangle(cornerRadius: 25)
-            .fill(baseGradient)
-            .frame(height: 50.0)
-            .foregroundColor(.white)
-            .overlay(
-                Button(action: {}) {
-                    Text(text).foregroundColor(.white)
-            })
+        Button(action: {}) {
+            Text(text)
+                .foregroundColor(.white)
+                .fontWeight(.semibold)
+                .font(Font.system(size: 20))
+                .multilineTextAlignment(.center)
+                .frame(height: 50.0)
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .background(baseGradient)
+                .border(baseGradient, width: 2)
+                .cornerRadius(30)
+                .padding(5)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 30)
+                        .stroke(baseGradient, lineWidth: 3)
+                )
+        }
     }
 }
